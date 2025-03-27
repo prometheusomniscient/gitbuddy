@@ -1,4 +1,4 @@
- import requests
+import requests
 from requests.auth import HTTPBasicAuth
 
 def create_jira_ticket(base_url, username, api_token, project_key, issue_type, summary, description):
@@ -15,7 +15,7 @@ def create_jira_ticket(base_url, username, api_token, project_key, issue_type, s
         description (str): The description of the issue.
 
     Returns:
-        dict: The response from the Jira API, including the ticket key  and URL if successful.
+        dict: The response from the Jira API, i ncluding the ticket key  and URL if successful.
     """
     url = f"{base_url}/rest/api/3/issue"
     headers = {
