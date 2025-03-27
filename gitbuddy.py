@@ -28,7 +28,7 @@ class AIGitPushAssistant:
 
     def git_push(self):
         """
-        Push committed changes to the remote repository.
+        Push committed changes to the remote repository .
         """
         try:
             self.run_command(f"git push origin {self.branch_name}")
@@ -129,7 +129,8 @@ class AIGitPushAssistant:
             return response.choices[0].message.content.strip()
         except Exception as e:
             print(f"AI Commit Message Generation Error: {e}")
-            return None
+            print("Falling back to the default commit message.")
+            return self.default_commit_message
 
     def ai_code_review(self, diff):
         """
