@@ -244,11 +244,12 @@ class AIGitPushAssistant:
                 return
 
         # AI Commit Message Generation
-        commit_message = custom_message
-        if self.ai_commit_message_generation and not custom_message:
-            ai_generated_message = self.generate_ai_commit_message(diff)
-            if ai_generated_message:
-                commit_message = ai_generated_message
+        commit_message = self.generate_ai_commit_message(diff)
+        # commit_message = custom_message
+        # if self.ai_commit_message_generation and not custom_message:
+        #     ai_generated_message = self.generate_ai_commit_message(diff)
+        #     if ai_generated_message:
+        #         commit_message = ai_generated_message
 
         # Commit with message
         self.git_commit(commit_message)
