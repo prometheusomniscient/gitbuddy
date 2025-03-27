@@ -16,7 +16,9 @@ class AIGitPushAssistant:
         self.branch_name = "main"  # Default branch to push to (e.g., 'main' or 'master')
 
         # AI Configuration
-        self.openai_api_key = ""  # Your OpenAI API key
+        self.openai_api_key = os.getenv("OPENAI_API_KEY")
+        if not self.openai_api_key:
+            raise ValueError("OpenAI API key not found. Please set the 'OPENAI_API_KEY' environment variable.")
         self.client = OpenAI(api_key=self.openai_api_key)
 
         # AI-powered features configuration
@@ -36,7 +38,7 @@ class AIGitPushAssistant:
 
     def git_commit(self, commit_message):
         """
-        Commit staged changes with a commit message.
+        Commit staged changes with a commit message .
         """
         try:
             if not commit_message:
