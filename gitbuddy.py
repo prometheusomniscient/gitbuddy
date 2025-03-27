@@ -39,7 +39,7 @@ class AIGitPushAssistant:
 
     def git_commit(self, commit_message):
         """
-        Commit staged changes wi th a commit message .
+        Commit staged changes with a commit message .
         """
         try:
             if not commit_message:
