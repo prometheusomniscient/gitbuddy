@@ -16,7 +16,7 @@ class AIGitPushAssistant:
         self.branch_name = "main"  # Default branch to push to (e.g., 'main' or 'master')
 
         # AI Configuration
-        self.openai_api_key = "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"  # Your OpenAI API key
+        self.openai_api_key = ""  # Your OpenAI API key
         self.client = OpenAI(api_key=self.openai_api_key)
 
         # AI-powered features configuration
