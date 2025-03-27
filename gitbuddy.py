@@ -29,6 +29,7 @@ class AIGitPushAssistant:
     def git_push(self):
         """
         Push committed changes to the remote repository .
+        Dummy string to test the push functionality.
         """
         try:
             self.run_command(f"git push origin {self.branch_name}")
