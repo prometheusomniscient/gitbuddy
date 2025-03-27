@@ -24,6 +24,16 @@ class AIGitPushAssistant:
         self.code_review_enabled = True
         self.changelog_generation_enabled = True
 
+    def git_push(self):
+        """
+        Push committed changes to the remote repository.
+        """
+        try:
+            self.run_command(f"git push origin {self.branch_name}")
+            print(f"Pushed changes to branch '{self.branch_name}'.")
+        except Exception as e:
+            print(f"Error pushing changes: {e}")
+
     def git_commit(self, commit_message):
         """
         Commit staged changes with a commit message.
