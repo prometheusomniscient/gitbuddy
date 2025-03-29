@@ -40,7 +40,7 @@ class AIGitPushAssistant:
 
     def git_push(self):
         """
-        Push committed changes to the remote repository  .
+        Push committed changes to the remote repository .
         Dummy string to test the push functionality.
         """
         try:
@@ -51,11 +51,16 @@ class AIGitPushAssistant:
 
     def git_commit(self, commit_message):
         """
-        Commit staged changes with a commit message .
+        Commit staged changes with a commit message.
         """
         try:
             if not commit_message:
                 commit_message = self.default_commit_message
+            
+            # Escape quotes in the commit message to prevent command issues
+            # Replace double quotes with escaped quotes
+            commit_message = commit_message.replace('"', '\\"')
+            
             self.run_command(f'git commit -m "{commit_message}"')
             print(f"Committed changes with message: {commit_message}")
         except Exception as e:
@@ -125,8 +130,7 @@ class AIGitPushAssistant:
         Use AI to generate a meaningful commit message based on code changes
         """
         try:
-            client = openai.OpenAI()  # Create a client instance
-            response = client.chat.completions.create(
+            response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
                     {
@@ -141,7 +145,8 @@ class AIGitPushAssistant:
                 max_tokens=100,
                 temperature=0.7
             )
-            return response.choices[0].message.content.strip()
+            print("AI Response:", response)  # Debugging line
+            return response['choices'][0]['message']['content'].strip()
         except Exception as e:
             print(f"AI Commit Message Generation Error: {e}")
             return self.default_commit_message
