@@ -28,10 +28,10 @@ class AIGitPushAssistant:
         # AI Configuration
         self.openai_api_key = OPEN_AI_API_KEY
         # self.openai_api_key = os.getenv("OPEN_AI_API_KEY")
-        # print(self.openai_api_key)
-        # if not self.openai_api_key:
-        #     raise ValueError("OpenAI API key not found. Please set the 'OPEN_AI_API_KEY' environment variable.")
-        # self.client = OpenAI(api_key=self.openai_api_key)
+        print(self.openai_api_key)
+        if not self.openai_api_key:
+            raise ValueError("OpenAI API key not found. Please set the 'OPEN_AI_API_KEY' environment variable.")
+        self.client = OpenAI(api_key=self.openai_api_key)
 
         # AI-powered features configuration
         self.ai_commit_message_generation = True
