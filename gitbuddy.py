@@ -122,7 +122,7 @@ class AIGitPushAssistant:
 
     def generate_ai_commit_message(self, diff):
         try:
-            response = openai.ChatCompletion.create(
+            response = self.client.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {
