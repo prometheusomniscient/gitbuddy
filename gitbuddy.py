@@ -140,7 +140,6 @@ class AIGitPushAssistant:
                 max_tokens=100,
                 temperature=0.7
             )
-            print("AI Response:", response)  # Debugging line
             return response['choices'][0]['message']['content'].strip()
         except Exception as e:
             print(f"AI Commit Message Generation Error: {e}")
