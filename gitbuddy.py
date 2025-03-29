@@ -121,7 +121,7 @@ class AIGitPushAssistant:
 
     def get_git_diff(self):
         """
-        Get the git diff of staged change s
+        Get the git diff of stag ed changes
         """
         return self.run_command("git diff --staged")
 
