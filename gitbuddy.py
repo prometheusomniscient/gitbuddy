@@ -1,3 +1,4 @@
+from dotenv import load_dotenv, dotenv_values
 import os
 import subprocess
 import sys
@@ -7,8 +8,20 @@ from openai import OpenAI
 import difflib
 from datetime import datetime
 
+
+load_dotenv()
+
+# Check if the variable is loading
+api_key = os.getenv("API_KEY")
+print(f"API Key: {api_key if api_key else 'Not Loaded!'}")
+
+config = dotenv_values(".env")  # Returns a dictionary
+OPEN_AI_API_KEY = config.get("OPEN_AI_API_KEY")
+print(OPEN_AI_API_KEY)
+
 class AIGitPushAssistant:
     def __init__(self):
+        load_dotenv(override=True)  # Load environment variables from .env file
         # Placeholders for key variables - replace these with your actual details
         self.repo_path = "C:/Users/willi/Desktop/AI/gitbuddy"  # Full path to your git repository
         self.default_commit_message = "default_commit_message"  # Default commit message if no specific one is provided
@@ -16,9 +29,10 @@ class AIGitPushAssistant:
         self.branch_name = "main"  # Default branch to push to (e.g., 'main' or 'master')
 
         # AI Configuration
-        self.openai_api_key = os.getenv("OPENAI_API_KEY")
+        self.openai_api_key = os.getenv("OPEN_AI_API_KEY")
+        print(self.openai_api_key)
         if not self.openai_api_key:
-            raise ValueError("OpenAI API key not found. Please set the 'OPENAI_API_KEY' environment variable.")
+            raise ValueError("OpenAI API key not found. Please set the 'OPEN_AI_API_KEY' environment variable.")
         self.client = OpenAI(api_key=self.openai_api_key)
 
         # AI-powered features configuration

@@ -2,6 +2,12 @@
 ## 2025-03-26
 
 - Refactor gitbuddy.py for improved commit message formatting.
+- Add gitbuddy_test.py for testing purposes.
+
+## 2025-03-26
+## 2025-03-26
+
+- Refactor gitbuddy.py for improved commit message formatting.
 
 ## 2025-03-26
 ## 2025-03-26
