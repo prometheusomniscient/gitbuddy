@@ -128,7 +128,7 @@ class AIGitPushAssistant:
         """
         try:
             response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4",
                 messages=[
                     {
                         "role": "system",
@@ -139,10 +139,11 @@ class AIGitPushAssistant:
                         "content": f"Generate a professional commit message for these code changes:\n\n{diff}\n\nProvide a concise summary that explains the purpose of the changes."
                     }
                 ],
-                max_tokens=100
+                max_tokens=100,
+                temperature=0.7
             )
             print("AI Response:", response)  # Debugging line
-            return response.choices[0].message.content.strip()
+            return response['choices'][0]['message']['content'].strip()
         except Exception as e:
             print(f"AI Commit Message Generation Error: {e}")
             return self.default_commit_message
