@@ -15,7 +15,6 @@ load_dotenv()
 # Check if the variable is loading
 config = dotenv_values(".env")  # Returns a dictionary
 OPEN_AI_API_KEY = config["OPEN_AI_API_KEY"]
-print(OPEN_AI_API_KEY)
 
 class AIGitPushAssistant:
     def __init__(self):
