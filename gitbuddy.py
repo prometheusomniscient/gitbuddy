@@ -121,11 +121,8 @@ class AIGitPushAssistant:
         return self.run_command("git diff --staged")
 
     def generate_ai_commit_message(self, diff):
-        """
-        Use AI to generate a meaningful commit message based on code changes
-        """
         try:
-            response = self.client.chat.completions.create(
+            response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {
@@ -139,10 +136,10 @@ class AIGitPushAssistant:
                 ],
                 max_tokens=100
             )
+            print("AI Response:", response)  # Debugging line
             return response.choices[0].message.content.strip()
         except Exception as e:
             print(f"AI Commit Message Generation Error: {e}")
-            print("Falling back to the default commit message.")
             return self.default_commit_message
 
     def ai_code_review(self, diff):

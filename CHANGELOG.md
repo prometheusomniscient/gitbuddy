@@ -1,3 +1,8 @@
+## 2025-03-29
+## 2025-03-26
+
+- Refactor: Update OPEN_AI_API_KEY in .env file.
+
 ## 2025-03-26
 ## 2025-03-26
 
