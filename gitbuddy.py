@@ -5,7 +5,7 @@ import sys
 import re
 import json
 from openai import OpenAI
-
+import openai
 import difflib
 from datetime import datetime
 
@@ -32,7 +32,8 @@ class AIGitPushAssistant:
         print(self.openai_api_key)
         if not self.openai_api_key:
             raise ValueError("OpenAI API key not found. Please set the 'OPEN_AI_API_KEY' environment variable.")
-        self.client = OpenAI(api_key=self.openai_api_key)
+        # self.client = OpenAI(api_key=self.openai_api_key)
+        openai.api_key = self.openai_api_key
 
         # AI-powered features configuration
         self.ai_commit_message_generation = True
@@ -122,8 +123,11 @@ class AIGitPushAssistant:
         return self.run_command("git diff --staged")
 
     def generate_ai_commit_message(self, diff):
+        """
+        Use AI to generate a meaningful commit message based on code changes
+        """
         try:
-            response = self.client.openai_api_key.ChatCompletion.create(
+            response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {
