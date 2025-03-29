@@ -38,33 +38,33 @@ class AIGitPushAssistant:
         self.code_review_enabled = True
         self.changelog_generation_enabled = True
 
-    def git_push(self):
-        """
-        Push committed changes to the remote repository .
-        Dummy string to test the push functionality.
-        """
-        try:
-            self.run_command(f"git push origin {self.branch_name}")
-            print(f"Pushed changes to branch '{self.branch_name}'.")
-        except Exception as e:
-            print(f"Error pushing changes: {e}")
-
     def git_commit(self, commit_message):
         """
         Commit staged changes with a commit message.
         """
-        try:
-            if not commit_message:
-                commit_message = self.default_commit_message
-            
-            # Escape quotes in the commit message to prevent command issues
-            # Replace double quotes with escaped quotes
-            commit_message = commit_message.replace('"', '\\"')
-            
-            self.run_command(f'git commit -m "{commit_message}"')
-            print(f"Committed changes with message: {commit_message}")
-        except Exception as e:
-            print(f"Error committing changes: {e}")
+        if not commit_message:
+            commit_message = self.default_commit_message
+        
+        # Escape quotes in the commit message to prevent command issues
+        commit_message = commit_message.replace('"', '\\"')
+        
+        result = self.run_command(f'git commit -m "{commit_message}"')
+        if result is None:
+            raise Exception("Failed to commit changes")
+        
+        print(f"Committed changes with message: {commit_message}")
+        return True
+
+    def git_push(self):
+        """
+        Push committed changes to the remote repository.
+        """
+        result = self.run_command(f"git push origin {self.branch_name}")
+        if result is None:
+            raise Exception("Failed to push changes")
+        
+        print(f"Pushed changes to branch '{self.branch_name}'.")
+        return True
 
     def git_add_all(self):
         """
@@ -263,23 +263,31 @@ class AIGitPushAssistant:
 
         # AI Commit Message Generation
         commit_message = self.generate_ai_commit_message(diff)
-        # commit_message = custom_message
-        # if self.ai_commit_message_generation and not custom_message:
-        #     ai_generated_message = self.generate_ai_commit_message(diff)
-        #     if ai_generated_message:
-        #         commit_message = ai_generated_message
+        
+        # Always show the commit message and ask for confirmation
+        print(f"\nProposed commit message: \"{commit_message}\"")
+        response = input("Would you like to proceed with the commit and push? (yes/no): ").lower()
+        
+        if response != 'yes':
+            print("Commit and push aborted.")
+            return
+        
+        # Proceed with commit if user confirmed
+        try:
+            # Commit with message
+            self.git_commit(commit_message)
 
-        # Commit with message
-        self.git_commit(commit_message)
+            # Generate Changelog
+            if self.changelog_generation_enabled:
+                self.generate_changelog(commit_message)
 
-        # Generate Changelog
-        if self.changelog_generation_enabled:
-            self.generate_changelog(commit_message)
+            # Push to remote
+            self.git_push()
 
-        # Push to remote
-        self.git_push()
-
-        print("Push completed successfully!")
+            print("Push completed successfully!")
+        except Exception as e:
+            print(f"Error during commit/push process: {e}")
+            print("Operation aborted.")
 
 def main():
     git_buddy = AIGitPushAssistant()
