@@ -40,7 +40,7 @@ class AIGitPushAssistant:
 
     def git_push(self):
         """
-        Push committed changes to the remote repository .
+        Push committed changes to the remote repository  .
         Dummy string to test the push functionality.
         """
         try:
