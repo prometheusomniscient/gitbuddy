@@ -125,7 +125,8 @@ class AIGitPushAssistant:
         Use AI to generate a meaningful commit message based on code changes
         """
         try:
-            response = openai.ChatCompletion.create(
+            client = openai.OpenAI()  # Create a client instance
+            response = client.chat.completions.create(
                 model="gpt-4",
                 messages=[
                     {
@@ -140,7 +141,7 @@ class AIGitPushAssistant:
                 max_tokens=100,
                 temperature=0.7
             )
-            return response['choices'][0]['message']['content'].strip()
+            return response.choices[0].message.content.strip()
         except Exception as e:
             print(f"AI Commit Message Generation Error: {e}")
             return self.default_commit_message
