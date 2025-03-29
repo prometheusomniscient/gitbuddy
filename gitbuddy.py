@@ -12,11 +12,8 @@ from datetime import datetime
 load_dotenv()
 
 # Check if the variable is loading
-api_key = os.getenv("API_KEY")
-print(f"API Key: {api_key if api_key else 'Not Loaded!'}")
-
 config = dotenv_values(".env")  # Returns a dictionary
-OPEN_AI_API_KEY = config.get("OPEN_AI_API_KEY")
+OPEN_AI_API_KEY = config["OPEN_AI_API_KEY"]
 print(OPEN_AI_API_KEY)
 
 class AIGitPushAssistant:
@@ -29,11 +26,12 @@ class AIGitPushAssistant:
         self.branch_name = "main"  # Default branch to push to (e.g., 'main' or 'master')
 
         # AI Configuration
-        self.openai_api_key = os.getenv("OPEN_AI_API_KEY")
-        print(self.openai_api_key)
-        if not self.openai_api_key:
-            raise ValueError("OpenAI API key not found. Please set the 'OPEN_AI_API_KEY' environment variable.")
-        self.client = OpenAI(api_key=self.openai_api_key)
+        self.openai_api_key = OPEN_AI_API_KEY
+        # self.openai_api_key = os.getenv("OPEN_AI_API_KEY")
+        # print(self.openai_api_key)
+        # if not self.openai_api_key:
+        #     raise ValueError("OpenAI API key not found. Please set the 'OPEN_AI_API_KEY' environment variable.")
+        # self.client = OpenAI(api_key=self.openai_api_key)
 
         # AI-powered features configuration
         self.ai_commit_message_generation = True
